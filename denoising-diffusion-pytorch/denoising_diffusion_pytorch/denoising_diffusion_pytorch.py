@@ -127,8 +127,6 @@ class SinusoidalPosEmb(Module):
         return emb
 
 class RandomOrLearnedSinusoidalPosEmb(Module):
-    """ following @crowsonkb 's lead with random (learned optional) sinusoidal pos emb """
-    """ https://github.com/crowsonkb/v-diffusion-jax/blob/master/diffusion/models/danbooru_128.py#L8 """
 
     def __init__(self, dim, is_random = False):
         super().__init__()
@@ -451,7 +449,6 @@ def linear_beta_schedule(timesteps):
 def cosine_beta_schedule(timesteps, s = 0.008):
     """
     cosine schedule
-    as proposed in https://openreview.net/forum?id=-NEXDKk8gZ
     """
     steps = timesteps + 1
     t = torch.linspace(0, timesteps, steps, dtype = torch.float64) / timesteps
@@ -463,8 +460,6 @@ def cosine_beta_schedule(timesteps, s = 0.008):
 def sigmoid_beta_schedule(timesteps, start = -3, end = 3, tau = 1, clamp_min = 1e-5):
     """
     sigmoid schedule
-    proposed in https://arxiv.org/abs/2212.11972 - Figure 8
-    better for images > 64x64, when used during training
     """
     steps = timesteps + 1
     t = torch.linspace(0, timesteps, steps, dtype = torch.float64) / timesteps
@@ -579,8 +574,6 @@ class GaussianDiffusion(Module):
         # snr - signal noise ratio
 
         snr = alphas_cumprod / (1 - alphas_cumprod)
-
-        # https://arxiv.org/abs/2303.09556
 
         maybe_clipped_snr = snr.clone()
         if min_snr_loss_weight:
