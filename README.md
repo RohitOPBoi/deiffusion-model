@@ -108,8 +108,7 @@ retinal-oct-diffusion/
 ├── results/
 ├── refine_outputs/
 ├── train.py
-├── sample.py
-├── refine_2.py
+├── refine.py
 ├── analysis.py
 ├── requirements.txt
 └── README.md
